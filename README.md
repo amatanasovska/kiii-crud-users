@@ -1,3 +1,8 @@
+# KIII project based on https://github.com/BaseMax/SimpleFastPyAPI
+
+This project is made as a project for the subject Continious Integration and Delivery based on existing open source project. Below is the documentation for the project:
+
+-----------------
 # Simple FastAPI Py
 
 ## My Awesome FastAPI Project
