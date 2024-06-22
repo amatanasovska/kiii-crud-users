@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kiii-final-project-configuration
+data:
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_DB: postgres
+  DATABASE_URL: postgresql://postgres:postgres@kiii-final-project-postgres-service:5432/postgres
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kiii-final-project-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kiii-final-project
+  template:
+    metadata:
+      labels:
+        app: kiii-final-project
+    spec:
+      containers:
+      - name: kiii-final-project
+        image: amatanasovska/kiii-final-project:latest
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: kiii-final-project-configuration
+        ports:
+        - containerPort: 80

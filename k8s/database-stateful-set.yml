@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kiii-final-project-postgres-config
+data:
+  POSTGRES_DB: postgres
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: kiii-final-project-postgres-pvc
+  labels:
+    app: postgres
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kiii-final-project-postgres
+spec:
+  serviceName: kiii-final-project-postgres-service
+  selector:
+    matchLabels:
+      app: postgres
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          envFrom:
+            - configMapRef:
+                name: kiii-final-project-postgres-config
+          ports:
+            - containerPort: 5432
+              name: postgres-port
+          volumeMounts:
+            - name: kiii-final-project-postgres-data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: kiii-final-project-postgres-data
+          persistentVolumeClaim:
+            claimName: kiii-final-project-postgres-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kiii-final-project-postgres-service
+spec:
+  selector:
+    app: postgres
+  ports:
+    - protocol: TCP
+      port: 5432
