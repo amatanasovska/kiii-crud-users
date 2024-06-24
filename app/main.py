@@ -9,7 +9,7 @@ Base.metadata.create_all(bind=engine)
 
 
 @app.get("/users/")
-def get_all_users(db: Session = Depends(Base)):
+def get_all_users(db: Session = Depends(get_db)):
     return db.query(User).all()
 
 @app.get("/users/{user_id}")

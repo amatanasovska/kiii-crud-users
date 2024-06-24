@@ -16,6 +16,13 @@ spec:
                 name: kiii-final-project-service
                 port: 
                   name: http
+          - path: /kiii-final-project
+            pathType: Prefix
+            backend:
+              service:
+                name: kiii-final-project-service
+                port: 
+                  name: http
     - host: kiii-final-project.local
       http:
         paths:
