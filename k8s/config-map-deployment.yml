@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kiii-final-project-configuration
+  namespace: kiii-final-project-namespace
+data:
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_DB: postgres
+  DATABASE_URL: postgresql://postgres:postgres@kiii-final-project-postgres-service:5432/postgres

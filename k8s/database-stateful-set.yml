@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: kiii-final-project-postgres-config
+  name: kiii-final-project-postgres-dbconfig
+  namespace: kiii-final-project-namespace
 data:
   POSTGRES_DB: postgres
   POSTGRES_USER: postgres
@@ -11,6 +12,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: kiii-final-project-postgres-pvc
+  namespace: kiii-final-project-namespace
   labels:
     app: postgres
 spec:
@@ -24,6 +26,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: kiii-final-project-postgres
+  namespace: kiii-final-project-namespace
 spec:
   serviceName: kiii-final-project-postgres-service
   selector:
@@ -40,7 +43,7 @@ spec:
           image: postgres:latest
           envFrom:
             - configMapRef:
-                name: kiii-final-project-postgres-config
+                name: kiii-final-project-postgres-dbconfig
           ports:
             - containerPort: 5432
               name: postgres-port
@@ -56,6 +59,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kiii-final-project-postgres-service
+  namespace: kiii-final-project-namespace
 spec:
   selector:
     app: postgres
