@@ -6,7 +6,7 @@ on:
       - '*'  # Trigger on all branches
 
 jobs:
-  test-and-deploy:
+  ci-docker:
     runs-on: ubuntu-latest
 
     steps:
