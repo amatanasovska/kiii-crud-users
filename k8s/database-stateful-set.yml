@@ -1,13 +1,3 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: kiii-final-project-postgres-dbconfig
-  namespace: kiii-final-project-namespace
-data:
-  POSTGRES_DB: postgres
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres
----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -43,7 +33,18 @@ spec:
           image: postgres:latest
           envFrom:
             - configMapRef:
-                name: kiii-final-project-postgres-dbconfig
+                name: kiii-final-project-configuration
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: kiii-final-project-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kiii-final-project-secret
+                  key: POSTGRES_PASSWORD
           ports:
             - containerPort: 5432
               name: postgres-port
