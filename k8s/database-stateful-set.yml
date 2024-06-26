@@ -33,17 +33,17 @@ spec:
           image: postgres:latest
           envFrom:
             - configMapRef:
-                name: kiii-final-project-configuration
+                name: kiii-final-project-configuration-db
           env:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: kiii-final-project-secret
+                  name: kiii-final-project-secret-db
                   key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: kiii-final-project-secret
+                  name: kiii-final-project-secret-db
                   key: POSTGRES_PASSWORD
           ports:
             - containerPort: 5432
