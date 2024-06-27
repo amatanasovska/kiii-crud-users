@@ -8,7 +8,7 @@ on:
 jobs:
   ci-docker:
     runs-on: ubuntu-latest
-
+    depends-on: build
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -17,7 +17,7 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-
+    
     - name: Build and push Docker image
       env:
         IMAGE_TAG: latest 
