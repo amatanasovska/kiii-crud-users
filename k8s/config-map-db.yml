@@ -5,4 +5,3 @@ metadata:
   namespace: kiii-final-project-namespace
 data:
   POSTGRES_DB: postgres
-  DATABASE_URL: postgresql://postgres:postgres@kiii-final-project-postgres-service:5432/postgres

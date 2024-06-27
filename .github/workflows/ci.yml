@@ -24,3 +24,14 @@ jobs:
       run: |
         docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/kiii-final-project:$IMAGE_TAG .
         docker push ${{ secrets.DOCKER_HUB_USERNAME }}/kiii-final-project:$IMAGE_TAG
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - name: Install dependencies
+        run: pip install -r app/requirements.txt
