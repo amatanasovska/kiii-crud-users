@@ -4,7 +4,7 @@ metadata:
   name: kiii-final-project-service
   namespace: kiii-final-project-namespace
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: kiii-final-project
   ports:
@@ -12,4 +12,3 @@ spec:
       name: http
       port: 80
       targetPort: 80
-      nodePort: 32767
